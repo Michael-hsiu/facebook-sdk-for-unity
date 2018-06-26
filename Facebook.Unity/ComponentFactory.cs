@@ -40,6 +40,7 @@ namespace Facebook.Unity
             {
                 if (facebookGameObject == null)
                 {
+                    Debug.Log("CREATING_NEW_FB_GAMEOBJ");
                     facebookGameObject = new GameObject(GameObjectName);
                 }
 

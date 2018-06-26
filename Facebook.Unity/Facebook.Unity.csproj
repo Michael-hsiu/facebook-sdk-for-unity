@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -32,6 +32,9 @@
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Facebook.Unity.Settings, Version=7.12.1.0, Culture=neutral, PublicKeyToken=null">
+      <HintPath>..\..\..\..\Code\Unity\Berkeley Game\MapBox 3D Map Demo 1\Assets\FacebookSDK\Plugins\Settings\Facebook.Unity.Settings.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="UnityEngine">
       <HintPath>\Applications\Unity\Unity.app\Contents\Managed\UnityEngine.dll</HintPath>
@@ -154,9 +157,6 @@
     </MonoDevelop>
   </ProjectExtensions>
   <ItemGroup>
-    <ProjectReference Include="..\Facebook.Unity.Settings\Facebook.Unity.Settings.csproj">
-      <Project>{BA9BAAC5-5D12-460A-A8B3-428CC1F1CCC6}</Project>
-      <Name>Facebook.Unity.Settings</Name>
-    </ProjectReference>
+    <Content Include="PlatformEditor\token.txt" />
   </ItemGroup>
 </Project>

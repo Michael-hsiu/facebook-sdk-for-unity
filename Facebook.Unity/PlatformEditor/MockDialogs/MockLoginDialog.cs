@@ -18,16 +18,21 @@
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
+using System.IO;
+using System.Reflection;
+
 namespace Facebook.Unity.Editor.Dialogs
 {
     using System;
     using System.Collections.Generic;
     using UnityEngine;
 
+    // MODIFIED BY MICHAEL, FOR EASIER TOKEN USAGE.
     internal class MockLoginDialog : EditorFacebookMockDialog
     {
         private string accessToken = string.Empty;
-
+        private string accessTokenPath = "token.txt";
+        
         protected override string DialogTitle
         {
             get
@@ -36,8 +41,38 @@ namespace Facebook.Unity.Editor.Dialogs
             }
         }
 
+        private string ReadAccessTokenFromFile()
+        {
+            if (File.Exists(accessTokenPath))
+            {
+                string readText = File.ReadAllText(accessTokenPath);
+                Debug.Log("ACCESS_TOKEN: " + readText);
+                return readText;
+            }
+            return string.Empty;
+        }
+
         protected override void DoGui()
         {
+            string currPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            accessTokenPath = Path.Combine(currPath, accessTokenPath);
+            Debug.Log("CURR_PATH: " + currPath);
+            Debug.Log("TOKEN_PATH: " + accessTokenPath);
+            
+            if (File.Exists(accessTokenPath))
+            {
+                accessToken = ReadAccessTokenFromFile();
+                Debug.Log("ACCESS_TOKEN_READ_ATTEMPT: " + accessToken);
+                if (accessToken != null && !accessToken.Equals(string.Empty))
+                {
+                    Debug.Log("READ ACCESS_TOKEN FROM FILE!");
+                    this.SendSuccessResult();
+                    MonoBehaviour.Destroy(this);
+                }
+            }
+           
+            Debug.Log("NO ACCESS_TOKEN FILE FOUND, CREATING DIALOG!");
+            
             GUILayout.BeginHorizontal();
             GUILayout.Label("User Access Token:");
             this.accessToken = GUILayout.TextField(this.accessToken, GUI.skin.textArea, GUILayout.MinWidth(400));
@@ -49,6 +84,7 @@ namespace Facebook.Unity.Editor.Dialogs
             }
 
             GUILayout.Space(20);
+            
         }
 
         protected override void SendSuccessResult()

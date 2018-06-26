@@ -21,7 +21,10 @@
 using System.Reflection;
 using System.Runtime.CompilerServices;
 
-[assembly: AssemblyVersion("7.12.2")]
+//[assembly: AssemblyVersion("7.12.2")]
+
+// HACK to get this to work with current imported version in Unity (this library is actually v 7.12.2 though)
+[assembly: AssemblyVersion("7.12.1")]
 [assembly: InternalsVisibleTo("Assembly-CSharp")]
 [assembly: InternalsVisibleTo("Facebook.Unity.Android")]
 [assembly: InternalsVisibleTo("Facebook.Unity.Canvas")]
